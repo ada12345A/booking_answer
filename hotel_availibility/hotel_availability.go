@@ -1,5 +1,7 @@
 package hotel_availibility
 
+import "fmt"
+
 /**
  * You are building a small command-line application to calculate hotel availability for a city. Your application reads in two (2) data files, and outputs its answer to STDOUT.
 *Your application will read in:
@@ -31,18 +33,45 @@ type Reservation struct {
 	hotel     string
 }
 
-func isConflict() {
+func isConflict(startDate2, endDate2 int, r Reservation) bool {
+	// i think this implementation is wrong, so i changed
+	/*if r.startDate >= startDate2 && r.endDate <= endDate2 {
+		return true
+	}
+	return false
+	*/
 
+	// should be like below
+	// leave at AM and check in at PM
+	if r.endDate <= startDate2 || r.startDate >= endDate2 {
+		return false
+	}
+	return true
 }
 
-func addReservation(startDate int, endDate int, hotel string) {
-
+func addReservation(startDate int, endDate int, hotel string, reservations []Reservation) []Reservation {
+	reservations = append(reservations, Reservation{
+		startDate: startDate,
+		endDate:   endDate,
+		hotel:     hotel,
+	})
+	return reservations
 }
 
-func addHotel(name string, room int) {
-
+func addHotel(name string, room int, hotel map[string]int) map[string]int {
+	hotel[name] = room
+	return hotel
 }
 
-func solve(startDate, endDate int) {
+func solve(startDate, endDate int, reservations []Reservation, hotel map[string]int) {
+	for i := 0; i < len(reservations); i++ {
+		r := reservations[i]
+		if isConflict(startDate, endDate, r) {
+			hotel[r.hotel] -= 1
+		}
+	}
 
+	for hotelName, leftRoomCnt := range hotel {
+		fmt.Print("Available rooms of %v:%v", hotelName, leftRoomCnt)
+	}
 }
