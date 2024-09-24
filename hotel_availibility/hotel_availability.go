@@ -34,7 +34,7 @@ type Reservation struct {
 }
 
 func isConflict(startDate2, endDate2 int, r Reservation) bool {
-	// i think this implementation is wrong, so i changed
+	// i think this implementation is wrong, so I changed
 	/*if r.startDate >= startDate2 && r.endDate <= endDate2 {
 		return true
 	}
