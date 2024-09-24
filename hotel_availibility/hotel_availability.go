@@ -1,4 +1,4 @@
-package booking_answer
+package hotel_availibility
 
 /**
  * You are building a small command-line application to calculate hotel availability for a city. Your application reads in two (2) data files, and outputs its answer to STDOUT.
